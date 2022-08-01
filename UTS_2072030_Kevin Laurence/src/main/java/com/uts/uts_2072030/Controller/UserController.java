@@ -15,11 +15,17 @@ public class UserController {
     private TextField txtPassword;
     public void submit(ActionEvent actionEvent) {
         UserDao dao = new UserDao();
-        int res = dao.addData(new User(0, txtUserName.getText(), txtPassword.getText()));
-        if (res > 0) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "User Added Successfully", ButtonType.OK);
+        if (txtUserName.getText().isEmpty() || txtPassword.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill the field", ButtonType.OK);
             alert.showAndWait();
-            txtUserName.getScene().getWindow().hide();
+        } else {
+            int res = dao.addData(new User(0, txtUserName.getText(), txtPassword.getText()));
+            if (res > 0) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "User Added Successfully", ButtonType.OK);
+                alert.showAndWait();
+                txtUserName.getScene().getWindow().hide();
+            }
         }
+
     }
 }

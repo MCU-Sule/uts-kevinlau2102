@@ -115,12 +115,18 @@ public class MainController {
     }
 
     public void DelUserAction(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure want to delete this data?", ButtonType.OK, ButtonType.CANCEL);
-        alert.showAndWait();
-        if (alert.getResult() == ButtonType.OK) {
-            uDao.delData(lvUser.getSelectionModel().getSelectedItem());
+        if (!lvUser.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure want to delete this data?", ButtonType.OK, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                uDao.delData(lvUser.getSelectionModel().getSelectedItem());
+            }
+            showData();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select the user first", ButtonType.OK);
+            alert.showAndWait();
         }
-        showData();
+
     }
 
     public void printReport(ActionEvent actionEvent) {
